@@ -1,0 +1,26 @@
+#!/bin/bash -e
+
+if [ -z "$DATADIR" ] ; then
+    DATADIR="/var/lib/mysql/"
+fi
+
+if [ -z "$DBHOST" ] ; then
+    echo "DBHOST not specified"
+    exit 1
+fi
+
+if [ -z "$DBUSER" ] ; then
+    echo "DBUSER not specified"
+    exit 1
+fi
+
+if [ -z "$DBPASS" ] ; then
+    echo "DBPASS not specified"
+    exit 1
+fi
+
+innobackupex --defaults-file=app/my.cnf --host=$DBHOST --user=$DBUSER --password=$DBPASS --no-timestamp /backup/bck
+
+cp /var/lib/mysql/debian* /backup/bck/
+
+innobackupex --defaults-file=app/my.cnf --apply-log /backup/bck
