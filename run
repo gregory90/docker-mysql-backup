@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 if [ -z "$DATADIR" ] ; then
-    DATADIR="/var/lib/mysql/"
+    DATADIR="/data"
 fi
 
 if [ -z "$DBHOST" ] ; then
@@ -19,8 +19,9 @@ if [ -z "$DBPASS" ] ; then
     exit 1
 fi
 
-innobackupex --defaults-file=app/my.cnf --host=$DBHOST --user=$DBUSER --password=$DBPASS --no-timestamp /backup/bck
 
-cp /var/lib/mysql/debian* /backup/bck/
+innobackupex --defaults-file=/app/my.cnf --host=$DBHOST --user=$DBUSER --password=$DBPASS --no-timestamp /backup/bck
 
-innobackupex --defaults-file=app/my.cnf --apply-log /backup/bck
+cp /data/debian* /backup/bck/
+
+innobackupex --defaults-file=/app/my.cnf --apply-log /backup/bck
