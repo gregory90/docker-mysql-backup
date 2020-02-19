@@ -1,8 +1,6 @@
 FROM gregory90/base:buster
 
 RUN mkdir /app && \
-    apt-get update && \
-    apt-get install -y -q libdbd-mysql-perl libaio1 rsync libev4 libgcrypt11  && \
     wget https://repo.percona.com/apt/percona-release_latest.$(lsb_release -sc)_all.deb -qO /app/xtrabackup && \
     dpkg -i /app/xtrabackup && \
     percona-release enable-only tools release && \
