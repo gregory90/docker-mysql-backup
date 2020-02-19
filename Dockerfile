@@ -7,7 +7,7 @@ RUN mkdir /app && \
     dpkg -i /app/xtrabackup && \
     percona-release enable-only tools release && \
     apt-get update && \
-    apt-get install -y percona-xtrabackup-80
+    apt-get install -y percona-xtrabackup-24
 
 
 ADD run /app/run
