@@ -1,10 +1,13 @@
-FROM gregory90/base:wheezy
+FROM gregory90/base:buster
 
 RUN mkdir /app && \
     apt-get update && \
     apt-get install -y -q libdbd-mysql-perl libaio1 rsync libev4 libgcrypt11  && \
-    wget https://www.percona.com/downloads/XtraBackup/XtraBackup-2.2.3/binary/debian/wheezy/x86_64/percona-xtrabackup_2.2.3-4982-1.wheezy_amd64.deb -qO /app/xtrabackup && \
-    dpkg -i /app/xtrabackup
+    wget https://repo.percona.com/apt/percona-release_latest.$(lsb_release -sc)_all.deb -qO /app/xtrabackup && \
+    dpkg -i /app/xtrabackup && \
+    percona-release enable-only tools release && \
+    apt-get update && \
+    apt-get install percona-xtrabackup-80
 
 
 ADD run /app/run
