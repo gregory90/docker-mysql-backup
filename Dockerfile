@@ -2,12 +2,12 @@ FROM gregory90/base:buster
 
 RUN mkdir /app && \
     apt-get update && \
-    apt-get install gnupg2 lsb-release && \
+    apt-get install -y gnupg2 lsb-release && \
     wget https://repo.percona.com/apt/percona-release_latest.buster_all.deb -qO /app/xtrabackup && \
     dpkg -i /app/xtrabackup && \
     percona-release enable-only tools release && \
     apt-get update && \
-    apt-get install percona-xtrabackup-80
+    apt-get install -y percona-xtrabackup-80
 
 
 ADD run /app/run
